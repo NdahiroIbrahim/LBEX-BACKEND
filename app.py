@@ -1,9 +1,10 @@
-from flask import Flask, request, jsonify
+import os
+from flask import Flask, request, jsonify, send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///waitlist.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.abspath(os.path.dirname(__file__)), 'instance', 'waitlist.db')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -39,6 +40,18 @@ def join_waitlist():
 
     return jsonify({"message": "Successfully added to the waitlist!"})
 
+@app.route('/export-db', methods=['GET'])
+def export_db():
+    try:
+        db_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'instance', 'waitlist.db')
+
+        if not os.path.exists(db_path):
+            return jsonify({"error": f"Database file not found at {db_path}"}), 500
+
+        return send_file(db_path, as_attachment=True)
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
