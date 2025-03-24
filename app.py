@@ -6,6 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.abspath(os.path.dirname(__file__)), 'instance', 'waitlist.db')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+print(f"Database Path: {app.config['SQLALCHEMY_DATABASE_URI']}")
 
 db = SQLAlchemy(app)
 CORS(app, supports_credentials=True)
