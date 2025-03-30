@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.abspath(os.path.dirname(__file__)), 'instance', 'waitlist.db')}"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///instance/waitlist.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 print(f"Database Path: {app.config['SQLALCHEMY_DATABASE_URI']}")
 
@@ -47,13 +47,14 @@ def waitlist():
 @app.route('/export-db', methods=['GET'])
 def export_db():
     try:
-        db_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'instance', 'waitlist.db')
+        # Use the absolute path to ensure correct access
+        db_path = os.path.join(app.root_path, 'instance', 'waitlist.db')
 
         if not os.path.exists(db_path):
             return jsonify({"error": f"Database file not found at {db_path}"}), 500
 
         return send_file(db_path, as_attachment=True)
-    
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 if __name__ == '__main__':
