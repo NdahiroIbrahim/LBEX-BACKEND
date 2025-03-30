@@ -27,7 +27,7 @@ def options():
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
     return response
 @app.route('/waitlist', methods=['GET','POST'])
-def join_waitlist():
+def waitlist():
     data = request.json
     name = data.get("name")
     email = data.get("email")
