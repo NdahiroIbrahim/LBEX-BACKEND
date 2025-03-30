@@ -1,8 +1,8 @@
-"""Create waitlist table
+"""Initial migration
 
-Revision ID: d50d9c7ea40e
+Revision ID: 9f9c26ca2905
 Revises: 
-Create Date: 2025-03-30 15:36:36.150500
+Create Date: 2025-03-30 21:47:39.942964
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd50d9c7ea40e'
+revision = '9f9c26ca2905'
 down_revision = None
 branch_labels = None
 depends_on = None
