@@ -1,7 +1,7 @@
 import os
 from flask import Blueprint, request, jsonify, send_file
 from app import db
-from app.model import Waitlist
+from app.model import Waitlist, Business
 
 main = Blueprint('main', __name__)
 
