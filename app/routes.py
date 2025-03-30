@@ -1,4 +1,5 @@
-from flask import Blueprint, request, jsonify
+import os
+from flask import Blueprint, request, jsonify, send_file
 from app import db
 from app.model import Waitlist
 
@@ -17,7 +18,7 @@ def add_to_waitlist():
     new_entry = Waitlist(name=data['name'], email=data['email'])
 
     try:
-        db,session.add(new_entry)
+        db.session.add(new_entry)
         db.session.commit()
         return jsonify({"message" : "Succesfully added to the waitlist"}), 201
     except Exception  as e:
