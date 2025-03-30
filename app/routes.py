@@ -25,6 +25,23 @@ def add_to_waitlist():
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
 
+@main.route('/register-business', methods=['POST'])
+def register_business():
+    data = request.get_json()
+    if not data or not data.get('name') or not data.get('email'):
+        return jsonify({"error": "Invalid input"}), 400
+
+    new_business = Business(name=data['name'], email=data['email'], industry=data.get('industry'), location=data.get('location'))
+
+    try:
+        db.session.add(new_business)
+        db.session.commit()
+        return jsonify({"message": "Business successfully registered!"}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 400
+
+
 @main.route('/export-db', methods=['GET'])
 def export_db():
     db_path = os.path.join(os.getcwd(), 'instance', 'app.db')
