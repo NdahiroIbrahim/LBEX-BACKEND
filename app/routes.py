@@ -12,6 +12,9 @@ def home():
 @main.route('/waitlist', methods=['POST'])
 def add_to_waitlist():
     data = request.get_json()
+    
+    print("Received Data:", data)  
+
     if not data or not data.get('name') or not data.get('email'):
         return jsonify({"error": "Invalid input"}), 400
 
