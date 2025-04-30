@@ -26,7 +26,7 @@ def add_to_waitlist():
         return jsonify({"message" : "Succesfully added to the waitlist"}), 201
     except Exception  as e:
         db.session.rollback()
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"error": "Already added to the waitlist"}), 400
 
 @main.route('/register-business', methods=['POST'])
 def register_business():
@@ -42,7 +42,7 @@ def register_business():
         return jsonify({"message": "Business successfully registered!"}), 201
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"error": "Business already registered"}), 400
 
 
 @main.route('/export-db', methods=['GET'])
