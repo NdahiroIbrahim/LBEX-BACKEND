@@ -13,7 +13,7 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
-    CORS(app)
+    CORS(app, origins=["https://lbex.netlify.app"])
 
     from app import model
 
