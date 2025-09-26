@@ -9,7 +9,7 @@ main = Blueprint('main', __name__)
 def home():
     return "Welcome to LBEx Waitlist API!"
 
-@main.route('/waitlist', methods=['POST'])
+@main.route('/waitlist', methods=['POST','GET'])
 def add_to_waitlist():
     data = request.get_json()
     
